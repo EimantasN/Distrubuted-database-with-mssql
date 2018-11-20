@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Data.SellerModels
+namespace SellerData.SellerModels
 {
     public class Shipping
     {
@@ -17,7 +17,7 @@ namespace Data.SellerModels
         public bool Notifications { get; set; }
 
         [Required]
-        public DateTime ExpectedTime { get; set;}
+        public DateTime ExpectedTime { get; set; }
 
         [Required]
         public Orders OrderInfo { get; set; }

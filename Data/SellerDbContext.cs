@@ -1,11 +1,11 @@
-﻿using Data.Models;
-using Data.SellerModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductData.Models;
+using SellerData.SellerModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data
+namespace SellerData
 {
     public class SellerDbContext : DbContext
     {

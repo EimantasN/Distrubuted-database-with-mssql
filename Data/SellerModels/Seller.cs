@@ -1,10 +1,10 @@
-﻿using Data.Models;
+﻿using ProductData.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Data.SellerModels
+namespace SellerData.SellerModels
 {
     public class Seller
     {
