@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using SellerData;
 
 namespace SellerData.Migrations
 {
     [DbContext(typeof(SellerDbContext))]
-    [Migration("20181018132546_initial")]
-    partial class initial
+    [Migration("20181120192534_newwa")]
+    partial class newwa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +21,7 @@ namespace SellerData.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Data.Models.Log", b =>
+            modelBuilder.Entity("SellerData.Models.Log", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,22 +37,29 @@ namespace SellerData.Migrations
                     b.ToTable("Logs");
                 });
 
-            modelBuilder.Entity("Data.Models.Rating", b =>
+            modelBuilder.Entity("SellerData.SellerModels.Item", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
-                    b.Property<int>("Count");
+                    b.Property<DateTime>("Created");
 
-                    b.Property<double>("Value");
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int?>("OrdersId");
+
+                    b.Property<int?>("SellerId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SellerRating");
+                    b.HasIndex("OrdersId");
+
+                    b.HasIndex("SellerId");
+
+                    b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Data.SellerModels.Orders", b =>
+            modelBuilder.Entity("SellerData.SellerModels.Orders", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,12 +71,29 @@ namespace SellerData.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Data.SellerModels.Seller", b =>
+            modelBuilder.Entity("SellerData.SellerModels.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ReviewCount");
+
+                    b.Property<double>("TotalValue");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("SellerData.SellerModels.Seller", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,9 +107,6 @@ namespace SellerData.Migrations
                     b.Property<string>("Description");
 
                     b.Property<bool>("Gender");
-
-                    b.Property<string>("LastName")
-                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -105,33 +127,7 @@ namespace SellerData.Migrations
                     b.ToTable("Sellers");
                 });
 
-            modelBuilder.Entity("Data.SellerModels.SellerItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<int>("FullItemId");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<int?>("OrdersId");
-
-                    b.Property<int?>("SellerId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrdersId");
-
-                    b.HasIndex("SellerId");
-
-                    b.ToTable("SellerItems");
-                });
-
-            modelBuilder.Entity("Data.SellerModels.Shipping", b =>
+            modelBuilder.Entity("SellerData.SellerModels.Shipping", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -154,27 +150,27 @@ namespace SellerData.Migrations
                     b.ToTable("Shippings");
                 });
 
-            modelBuilder.Entity("Data.SellerModels.Seller", b =>
+            modelBuilder.Entity("SellerData.SellerModels.Item", b =>
                 {
-                    b.HasOne("Data.Models.Rating", "SellerRating")
-                        .WithMany()
-                        .HasForeignKey("SellerRatingId");
-                });
-
-            modelBuilder.Entity("Data.SellerModels.SellerItem", b =>
-                {
-                    b.HasOne("Data.SellerModels.Orders")
+                    b.HasOne("SellerData.SellerModels.Orders")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrdersId");
 
-                    b.HasOne("Data.SellerModels.Seller")
+                    b.HasOne("SellerData.SellerModels.Seller")
                         .WithMany("SellerItems")
                         .HasForeignKey("SellerId");
                 });
 
-            modelBuilder.Entity("Data.SellerModels.Shipping", b =>
+            modelBuilder.Entity("SellerData.SellerModels.Seller", b =>
                 {
-                    b.HasOne("Data.SellerModels.Orders", "OrderInfo")
+                    b.HasOne("SellerData.SellerModels.Rating", "SellerRating")
+                        .WithMany()
+                        .HasForeignKey("SellerRatingId");
+                });
+
+            modelBuilder.Entity("SellerData.SellerModels.Shipping", b =>
+                {
+                    b.HasOne("SellerData.SellerModels.Orders", "OrderInfo")
                         .WithMany()
                         .HasForeignKey("OrderInfoId")
                         .OnDelete(DeleteBehavior.Cascade);

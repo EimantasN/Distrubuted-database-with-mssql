@@ -24,7 +24,7 @@ namespace Distrubuted_database
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProductDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ProducConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("ProductConnection")));
 
             services.AddDbContext<SellerDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("SellerConnection")));

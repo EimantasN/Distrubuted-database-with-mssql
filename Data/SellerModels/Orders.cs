@@ -1,5 +1,4 @@
-﻿using ProductData.ProductModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -20,9 +19,9 @@ namespace SellerData.SellerModels
         [Required]
         public DateTime Created { get; set; }
 
-        public User user { get; set; }
+        public int UserId { get; set; }
 
-        public List<SellerItem> OrderItems { get; set; }
+        public List<Item> OrderItems { get; set; }
     }
 
     public enum Status

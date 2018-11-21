@@ -1,8 +1,5 @@
-﻿using ProductData.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SellerData.SellerModels
 {
@@ -34,6 +31,6 @@ namespace SellerData.SellerModels
 
         public Rating SellerRating { get; set; }
 
-        public List<SellerItem> SellerItems { get; set; }
+        public List<Item> SellerItems { get; set; }
     }
 }
