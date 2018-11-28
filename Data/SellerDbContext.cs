@@ -10,6 +10,13 @@ namespace SellerData
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Seller>()
+                .HasIndex(u => u.PostalCode)
+                .IsUnique();
+        }
+
         public DbSet<Seller> Sellers { get; set; }
         public DbSet<SellerModels.Item> Products { get; set; }
         public DbSet<Rating> Ratings { get; set; }

@@ -11,6 +11,17 @@ namespace ProductData
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Item>()
+                .HasIndex(u => u.Created)
+                .IsUnique();
+
+            builder.Entity<Item>().HasAlternateKey(u => u.Created);
+
+
+        }
+
         public DbSet<Item> Products { get; set; }
 
         public DbSet<User> Users { get; set; }

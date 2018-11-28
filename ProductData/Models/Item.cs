@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace ProductData.Models
@@ -9,7 +10,8 @@ namespace ProductData.Models
     public class Item
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public long Id { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -32,6 +34,8 @@ namespace ProductData.Models
 
 
         [Required]
+        public DateTime Created { get; set; }
+
         public DateTime Updated { get; set; }
 
 

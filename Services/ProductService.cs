@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProductData;
+using ProductData.Models;
 
 namespace Services
 {
@@ -16,6 +17,18 @@ namespace Services
         public ProductService(ProductDbContext ctx)
         {
             _ctx = ctx;
+        }
+
+        public async Task<List<Item>> GetItems()
+        {
+            try
+            {
+                return await _ctx.Products.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

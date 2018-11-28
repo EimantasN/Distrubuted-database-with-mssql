@@ -10,8 +10,8 @@ using SellerData;
 namespace SellerData.Migrations
 {
     [DbContext(typeof(SellerDbContext))]
-    [Migration("20181120192534_newwa")]
-    partial class newwa
+    [Migration("20181125145202_seller")]
+    partial class seller
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,14 +113,16 @@ namespace SellerData.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<string>("PostalCode")
-                        .IsRequired();
+                    b.Property<int>("PostalCode");
 
                     b.Property<int?>("SellerRatingId");
 
                     b.Property<double>("SuccessProcent");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostalCode")
+                        .IsUnique();
 
                     b.HasIndex("SellerRatingId");
 

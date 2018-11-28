@@ -111,14 +111,16 @@ namespace SellerData.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<string>("PostalCode")
-                        .IsRequired();
+                    b.Property<int>("PostalCode");
 
                     b.Property<int?>("SellerRatingId");
 
                     b.Property<double>("SuccessProcent");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostalCode")
+                        .IsUnique();
 
                     b.HasIndex("SellerRatingId");
 

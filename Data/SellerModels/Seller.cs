@@ -9,6 +9,9 @@ namespace SellerData.SellerModels
         public int Id { get; set; }
 
         [Required]
+        public int PostalCode { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]
@@ -20,9 +23,6 @@ namespace SellerData.SellerModels
 
         [Required]
         public string Address { get; set; }
-
-        [Required]
-        public string PostalCode { get; set; }
 
         public string PhoneNumber { get; set; }
 
