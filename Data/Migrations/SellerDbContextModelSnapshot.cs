@@ -37,7 +37,7 @@ namespace SellerData.Migrations
 
             modelBuilder.Entity("SellerData.SellerModels.Item", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<long>("Id");
 
                     b.Property<DateTime>("Created");
 
@@ -46,13 +46,13 @@ namespace SellerData.Migrations
 
                     b.Property<int?>("OrdersId");
 
-                    b.Property<int?>("SellerId");
+                    b.Property<int?>("SellerPostalCode");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrdersId");
 
-                    b.HasIndex("SellerId");
+                    b.HasIndex("SellerPostalCode");
 
                     b.ToTable("Products");
                 });
@@ -93,9 +93,7 @@ namespace SellerData.Migrations
 
             modelBuilder.Entity("SellerData.SellerModels.Seller", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("PostalCode");
 
                     b.Property<string>("Address")
                         .IsRequired();
@@ -111,13 +109,11 @@ namespace SellerData.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<int>("PostalCode");
-
                     b.Property<int?>("SellerRatingId");
 
                     b.Property<double>("SuccessProcent");
 
-                    b.HasKey("Id");
+                    b.HasKey("PostalCode");
 
                     b.HasIndex("PostalCode")
                         .IsUnique();
@@ -158,7 +154,7 @@ namespace SellerData.Migrations
 
                     b.HasOne("SellerData.SellerModels.Seller")
                         .WithMany("SellerItems")
-                        .HasForeignKey("SellerId");
+                        .HasForeignKey("SellerPostalCode");
                 });
 
             modelBuilder.Entity("SellerData.SellerModels.Seller", b =>

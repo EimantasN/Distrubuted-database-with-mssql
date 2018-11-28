@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SellerData.Migrations
 {
-    public partial class seller : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,8 +79,6 @@ namespace SellerData.Migrations
                 name: "Sellers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PostalCode = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Gender = table.Column<bool>(nullable: false),
@@ -93,7 +91,7 @@ namespace SellerData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sellers", x => x.Id);
+                    table.PrimaryKey("PK_Sellers", x => x.PostalCode);
                     table.ForeignKey(
                         name: "FK_Sellers_Ratings_SellerRatingId",
                         column: x => x.SellerRatingId,
@@ -106,11 +104,11 @@ namespace SellerData.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     OrdersId = table.Column<int>(nullable: true),
-                    SellerId = table.Column<int>(nullable: true)
+                    SellerPostalCode = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -122,10 +120,10 @@ namespace SellerData.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Sellers_SellerId",
-                        column: x => x.SellerId,
+                        name: "FK_Products_Sellers_SellerPostalCode",
+                        column: x => x.SellerPostalCode,
                         principalTable: "Sellers",
-                        principalColumn: "Id",
+                        principalColumn: "PostalCode",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -135,9 +133,9 @@ namespace SellerData.Migrations
                 column: "OrdersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SellerId",
+                name: "IX_Products_SellerPostalCode",
                 table: "Products",
-                column: "SellerId");
+                column: "SellerPostalCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sellers_PostalCode",
